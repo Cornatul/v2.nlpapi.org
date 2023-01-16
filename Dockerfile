@@ -4,6 +4,8 @@ WORKDIR /app/
 ADD . /app/
 RUN su -c "apt-get update"
 RUN su -c "python3 -m pip install --upgrade pip"
+RUN su -c "pip install tokenizers"
+RUN su -c "pip install numpy"
 RUN su -c "pip install spacy"
 RUN su -c "pip install nltk"
 RUN su -c "pip install textblob"
