@@ -6,7 +6,7 @@ RUN su -c "apt-get update"
 RUN su -c "python3 -m pip install --upgrade pip"
 RUN su -c "curl https://sh.rustup.rs -sSf | sh -s -- -y"
 RUN export PATH="$HOME/.cargo/bin:$PATH"
-RUN source $HOME/.cargo/env
+RUN su -c  "source $HOME/.cargo/env"
 RUN su -c "pip install tokenizers"
 RUN su -c "pip install numpy"
 RUN su -c "pip install spacy"
