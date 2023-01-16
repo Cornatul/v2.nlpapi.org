@@ -2,12 +2,11 @@ FROM python:3.10
 RUN apt update
 WORKDIR /app/
 ADD . /app/
-ARG RUSTUP_INIT_SKIP_PATH_CHECK=yes
 RUN su -c "apt-get update"
 RUN su -c "python3 -m pip install --upgrade pip"
 RUN su -c "curl https://sh.rustup.rs -sSf | sh -s -- -y"
-RUN su -c 'export PATH="$HOME/.cargo/bin:$PATH"'
-RUN su -c 'source $HOME/.cargo/env'
+RUN export PATH="$HOME/.cargo/bin:$PATH"
+RUN source $HOME/.cargo/env
 RUN su -c "pip install tokenizers"
 RUN su -c "pip install numpy"
 RUN su -c "pip install spacy"
