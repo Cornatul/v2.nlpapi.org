@@ -28,7 +28,7 @@ sqlalchemy~=1.4.41
 
 pytrends~=4.8.0
 
-absl-py~=0.13.0
+absl-py~=1.0.0
 astunparse~=1.6.3
 cachetools~=4.2.2
 certifi~=2021.5.30
