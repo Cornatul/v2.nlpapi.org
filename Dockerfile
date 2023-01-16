@@ -4,6 +4,10 @@ WORKDIR /app/
 ADD . /app/
 RUN su -c "apt-get update"
 RUN su -c "python3 -m pip install --upgrade pip"
+RUN su -c "curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh"
+RUN su -c 'export PATH="$HOME/.cargo/bin:$PATH"'
+RUN su -c 'source $HOME/.cargo/env'
+
 RUN su -c "pip install tokenizers"
 RUN su -c "pip install numpy"
 RUN su -c "pip install spacy"
