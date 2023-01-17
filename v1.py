@@ -9,9 +9,7 @@ from GoogleNews import GoogleNews
 from newspaper import Article
 import spacy
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
 from nltk.stem.porter import *
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 stemmer = PorterStemmer()
 from nltk.stem import WordNetLemmatizer
 
@@ -34,9 +32,6 @@ app.add_middleware(
     allow_credentials=True,
 )
 
-#Models
-tokenizer = AutoTokenizer.from_pretrained("t5-small")
-model = AutoModelForSeq2SeqLM.from_pretrained("t5-small")
 
 class PostAction(BaseModel):
     query: str
@@ -49,8 +44,9 @@ class TwitterAction(BaseModel):
     access_token_secret: str
 
 
-class SummarizationAction(BaseModel):
+class TranslateAction(BaseModel):
     text: str
+    lang: str
 
 
 description = """
@@ -64,19 +60,6 @@ You can **get the latest trending news**.
 async def root():
     return {"data": {
         "response": newspaper.popular_urls(),
-    }}
-
-
-@app.post("/api/v1/summarization")
-async def root(summarization: SummarizationAction):
-    # Translation section
-    summarizer = pipeline('summarization', model='t5-small', tokenizer='t5-small',
-                          max_length=78, truncation=True)
-
-    summary = summarizer(summarization.text, do_sample=False)
-    summary = summary[0]['summary_text']
-    return {"data": {
-        "response": summary,
     }}
 
 

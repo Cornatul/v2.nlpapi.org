@@ -86,9 +86,13 @@ RUN su -c "pip3 install six"
 RUN su -c "pip3 install tensorboard"
 RUN su -c "pip3 install tensorboard-data-server"
 RUN su -c "pip3 install tensorboard-plugin-wit"
+
 # @Todo Find how can I run tensorflow without missing ATX instructions
 # RUN su -c "pip3 install https://github.com/mdsimmo/tensorflow-community-wheels/releases/download/1.12.0_cpu_py3_5_amd64/tensorflow-1.12.0-cp35-cp35m-linux_x86_64.whl"
+# End
 RUN su -c "pip3 install tensorflow"
+
+
 RUN su -c "pip3 install tensorflow-estimator"
 RUN su -c "pip3 install termcolor"
 RUN su -c "pip3 install tqdm"
@@ -113,6 +117,6 @@ RUN su -c "python3 -m textblob.download_corpora"
 # RUN pip install -r requirements.txt --default-timeout=28000
 RUN su -c "python3 download-model.py"
 EXPOSE 8000
-# EXPOSE 7000
+EXPOSE 7000
 CMD ["hypercorn", "main:app", "-b", "0.0.0.0:8000", "--reload"]
-# CMD ["hypercorn", "download-model:app", "-b", "0.0.0.0:7000", "--reload"]
+CMD ["hypercorn", "v1:app", "-b", "0.0.0.0:7000", "--reload"]
