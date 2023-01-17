@@ -12,6 +12,7 @@ RUN su -c  "source $HOME/.cargo/env"
 RUN /bin/bash -c "source $HOME/.cargo/env"
 
 # Other Packages
+RUN su -c "pip3 install torch"
 RUN su -c "pip3 install transformers"
 RUN su -c "pip3 install tokenizers"
 RUN su -c "pip3 install h11"
@@ -97,10 +98,10 @@ RUN su -c "pip3 install zipp"
 
 
 
-# RUN su -c "pip3 install numpy"
-# RUN su -c "pip3 install spacy"
-# RUN su -c "pip3 install nltk"
-# RUN su -c "pip3 install textblob"
+RUN su -c "pip3 install numpy"
+RUN su -c "pip3 install spacy"
+RUN su -c "pip3 install nltk"
+RUN su -c "pip3 install textblob"
 RUN su -c "python3 -m nltk.downloader -d /usr/local/share/nltk_data punkt"
 RUN su -c "python3 -m nltk.downloader -d /usr/local/share/nltk_data stopwords"
 RUN su -c "python3 -m nltk.downloader -d /usr/local/share/nltk_data vader_lexicon"
