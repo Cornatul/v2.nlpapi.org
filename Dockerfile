@@ -3,13 +3,14 @@ RUN apt update
 WORKDIR /app/
 ADD . /app/
 RUN su -c "apt-get update"
+RUN su -c "sh -s -- -y apt-get install pkg-config libhdf5-dev"
 RUN su -c "python3 -m pip install --upgrade pip"
 RUN su -c "curl https://sh.rustup.rs -sSf | sh -s -- -y"
 RUN export PATH="$HOME/.cargo/bin:$PATH"
 RUN su -c  "source $HOME/.cargo/env"
 RUN /bin/bash -c "source $HOME/.cargo/env"
 
-
+# Other Packages
 RUN su -c "pip install tokenizers"
 
 RUN su -c "pip install numpy"
