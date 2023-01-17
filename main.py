@@ -9,7 +9,7 @@ from GoogleNews import GoogleNews
 from newspaper import Article
 import spacy
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from transformers import T5Tokenizer, T5ForConditionalGeneration
+from transformers import T5Tokenizer, T5ForConditionalGeneration, pipeline
 from nltk.stem.porter import *
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 stemmer = PorterStemmer()
@@ -34,6 +34,9 @@ app.add_middleware(
     allow_credentials=True,
 )
 
+#Models
+tokenizer = AutoTokenizer.from_pretrained("t5-small")
+model = AutoModelForSeq2SeqLM.from_pretrained("t5-small")
 
 class PostAction(BaseModel):
     query: str
@@ -46,9 +49,8 @@ class TwitterAction(BaseModel):
     access_token_secret: str
 
 
-class TranslateAction(BaseModel):
+class SummarizationAction(BaseModel):
     text: str
-    lang: str
 
 
 description = """
@@ -65,17 +67,16 @@ async def root():
     }}
 
 
-@app.post("/api/v1/translate")
-async def root(post: TranslateAction):
+@app.post("/api/v1/summarization")
+async def root(summarization: SummarizationAction):
     # Translation section
+    summarizer = pipeline('summarization', model='t5-small', tokenizer='t5-small',
+                          max_length=78, truncation=True)
 
-
-    tokenizer = AutoTokenizer.from_pretrained("t5-small")
-
-    model = AutoModelForSeq2SeqLM.from_pretrained("t5-small")
-    outputs = model.generate(input_ids)
+    summary = summarizer(summarization.text, do_sample=False)
+    summary = summary[0]['summary_text']
     return {"data": {
-        "response": tokenizer.decode(outputs[0], skip_special_tokens=True),
+        "response": summary,
     }}
 
 
