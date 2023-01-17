@@ -12,6 +12,7 @@ RUN su -c  "source $HOME/.cargo/env"
 RUN /bin/bash -c "source $HOME/.cargo/env"
 
 # Other Packages
+RUN su -c "pip3 install transformers"
 RUN su -c "pip3 install tokenizers"
 RUN su -c "pip3 install numpy"
 RUN su -c "pip3 install spacy"
