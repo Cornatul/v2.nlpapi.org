@@ -24,7 +24,7 @@ minet~=0.62.1
 praw~=7.6.0
 prawcore~=2.3.0
 tweepy~=4.10.1
-sqlalchemy~=1.4.41
+
 
 pytrends~=4.8.0
 
