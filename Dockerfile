@@ -95,6 +95,7 @@ RUN su -c "pip3 install urllib3"
 RUN su -c "pip3 install Werkzeug"
 RUN su -c "pip3 install wrapt"
 RUN su -c "pip3 install zipp"
+RUN su -c "pip3 install fastapi"
 
 
 
