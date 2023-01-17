@@ -5,7 +5,7 @@ model_path = 'models/transformers/' # will be created automatically if not exist
 #%% download and save the model to local directory
 model_name = "nlptown/bert-base-multilingual-uncased-sentiment"
 
-model = TFAutoModelForSequenceClassification.from_pretrained(model_name, from_pt=True)
+model = TFAutoModelForSequenceClassification.from_pretrained(model_name, from_pt=True, force_download=True)
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 classifier = pipeline('sentiment-analysis', model=model, tokenizer=tokenizer)
 classifier.save_pretrained(model_path)
